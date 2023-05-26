@@ -1,0 +1,111 @@
+@startuml
+
+class Dossier <<entity>>{
+	-refDossier <<identifiant>> : Integer
+	-nomFichierExpertise : String
+	-immatriculation : String
+	-idExpert : Integer
+	+getRefDossier() : String
+	+setRefDossier() : void
+	+getNomFichierExpertise() : String
+	+setNomFichierExpertise() : void
+	+getPrestations() : Prestation[]
+	+getPrestationsPeinture() : PrestationPeinture[]
+	+getPrestationsPiece() : PrestationPiece[]
+}
+class Vehicule <<entity>>{
+	-immatriculation <<identifiant>>: String
+	-anneeMiseEnCirculation : Datetime
+	-couleur : String
+	+getImmatriculation() : String
+	+setImmatriculation() : void
+	+getAnneeMiseEnCirculation() : Datetime
+	+setAnneeMiseEnCirculation() : void
+	+getCouleur() : String
+	+setCouleur() : void
+}
+class Modele <<entity>>{
+	-idModele <<identifiant>> : Integer
+	-libelle : String
+	-marque : String
+	+getId() : Integer
+	+setId() : void
+	+getLibelle() : String
+	+setLibelle() : void
+	+getMarque() : String
+	+setMarque() : void
+}
+class Prestation {
+	-id <<identifiant>> : Integer
+	-ordre: Integer
+	-refDossier : String
+	-libelle : String
+	-description : String
+	-photo : String
+	+getId() : Integer
+	+setId() : void
+	+getRefDossier() : String
+	+setRefDossier() : void
+	+getLibelle() : String
+	+setLibelle() : void
+	+getDescription() : String
+	+setDescription() : void
+	+getPhoto() : String
+	+setPhoto() : void
+}
+class PrestationPeinture <<entity>>{
+	-elementCarrosserie : String
+	-typePeinture : String
+	-refDossier : String
+	+getElementCarrosserie() : String
+	+setElementCarrosserie() : void
+	+getTypePeinture() : String
+	+setTypePeinture() : void
+}
+class PrestationPiece <<entity>>{
+	-referencePiece : String
+	-libellePiece : String
+	-quantite : Integer
+	-refDossier : String
+	+getReferencePiece() : String
+	+setReferencePiece() : void
+	+getLibellePiece() : String
+	+setLibellePiece() : void
+	+getQuantite() : Integer
+	+setQuantite() : void
+} 
+
+class Expert {
+	-id <<identifiant>> : Integer
+	-nom : String
+	-prenom : String
+	+getId() : Integer
+	+setId() : void
+	+getNom() : String
+	+setNom() : void
+	+getPrenom() : String
+	+setPrenom() : void
+}
+
+PrestationPeinture --|> Prestation
+PrestationPiece --|> Prestation
+Dossier "0..1" -- "1" Vehicule : assigned to
+Vehicule "0..n" -- "1" Modele : is of one
+Dossier "1" *-- "0..n" Prestation : contains
+Expert "1" -- "0..n" Dossier : create
+@enduml
+
+
+
+' La société RestiLoc expertise les véhicules restitués en fin de contrat de location, pour le compte des sociétés de financement. Dans ce cadre, le rôle de l'expert est d'effectuer un état des lieux de chaque véhicule restitué de façon à informer précisément la société de financement sur les besoins de remise en état. À partir de cette expertise et de son propre barème de dépréciation, la société de financement facturera le client et décidera d’effectuer ou pas, des travaux de remise en état avant de mettre ou de faire mettre le véhicule sur le marché de l'occasion. RestiLoc ne s’occupe donc ni de chiffrer en euros les prestations de remise en état nécessaires, ni de réparer ou de faire réparer.
+' Dans le cadre de l'évolution du système d'information de RestiLoc, il est demandé à la DSI de faire évoluer l'application Torapix de manière à renseigner le détail des prestations de remise en état nécessaires (PREE) identifiées par l’expert pour chaque dossier.
+
+' Un dossier d’expertise correspond à un seul véhicule. L’expert est chargé de relever les éventuelles PREE nécessaires. Ces prestations seront identifiées par la référence du dossier d’expertise suivie d'un numéro d'ordre (numéro séquentiel de 1 à x). Chaque prestation sera décrite par un libellé (texte court) et pourra être précisée par une description (texte long). Au cours de cette expertise, une photo est réalisée pour preuve, pour chaque prestation de remise en état nécessaire. Le nom de cette photo est à mémoriser.
+' Il existe deux types de prestations de remise en état :
+' -	les prestations "peinture" ;
+' -	les prestations "pièce".
+
+' Une prestation de remise en état "peinture" concerne des travaux sur un ou plusieurs éléments de carrosserie du véhicule restitué (par exemple : pare-chocs avant, aile avant gauche, …), chacun nécessitant un traitement de peinture (par exemple : "réaliser un voile", "réparer et peindre partiellement" ou "réparer et peindre complètement", …).
+
+' Une prestation de remise en état "pièce" concerne le remplacement de pièces lorsque celles-ci sont cassées ou très abimées Il faut mémoriser quelles sont les pièces à changer (par exemple : boite à gants, essuie-glace, roue de secours, …) et dans quelle quantité, sachant que chaque pièce possède une référence et un libellé.
+

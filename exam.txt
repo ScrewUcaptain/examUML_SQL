@@ -1,0 +1,31 @@
+Question 1.1
+Proposer une modification de la structure de la base de données pour intégrer la gestion des PREE.
+
+Vous présenterez les évolutions de la structure de la base de données en réalisant un diagramme de 
+classe et un schéma relationnel de la nouvelle BDD
+
+Question 2.1
+Justifier le choix fait par vos collègues d’utiliser une classe abstraite pour la classe Expertise.
+
+Question 2.2
+Implémentez le diagramme de classe.
+
+Question 2.3
+Écrire la méthode GetMotif de la classe Indisponibilite qui retourne le motif de l’indisponibilité.
+
+Question 2.4
+Écrire la méthode LesExpertisesIndispos de la classe SocieteFinancement qui retourne la collection de toutes les expertises qui ont donné lieu à une indisponibilité.
+
+Question 2.5
+Écrire la méthode NbIndisponibilites qui retourne le nombre d’expertises indisponibles correspondant au motif passé en paramètre.
+
+Question 3.1
+Écrire en langage SQL les requêtes permettant d’obtenir les informations souhaitées.
+
+Question 3.2
+Écrire en langage SQL les requêtes permettant :
+
+-	De créer les tables et les clés étrangères (contraintes d’intégrités)
+-	Ajouter des données dans la BDD
+-	Supprimer des entrées
+

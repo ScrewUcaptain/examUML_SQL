@@ -1,0 +1,7 @@
+La classe Expertise est une classe abstraite 
+car c'est une classe qui va être
+ instanciée par d'autres classes 
+qui auront des attributs et méthodes communes, 
+cela permet d'éviter la redondance et 
+d'avoir une structure commune ce qui évite des bugs 
+et une maintenance plus facile.
